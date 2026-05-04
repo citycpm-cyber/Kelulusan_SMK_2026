@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengumuman Kelulusan Online | SMK MA'ARIF NU 01 BULAKAMBA</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; color: #333; }
+        
+        /* Header Responsif */
+        .hero-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px 15px 80px;
+            text-align: center;
+        }
+        .hero-section h1 { font-size: 1.8rem; font-weight: 700; }
+
+        /* Card Input */
+        .search-container { margin-top: -50px; padding: 0 15px; }
+        .card-main {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Desain SKL (Responsive Mobile) */
+        #skl-print-area {
+            background: white;
+            padding: 25px; /* Padding lebih kecil di HP */
+        }
+        
+        /* Kop Surat Mobile Friendly */
+        .kop-surat h5 { font-size: 0.8rem; }
+        .kop-surat h4 { font-size: 1rem; }
+        .kop-surat h3 { font-size: 1.2rem; margin: 5px 0; }
+        .kop-surat p { font-size: 0.7rem; margin-bottom: 0; }
+
+        /* Tabel Data Siswa (Stack di HP) */
+        .table-res { width: 100%; margin-top: 20px; }
+        .table-res td { padding: 8px 0; display: block; width: 100%; }
+        .table-res td:first-child { font-weight: 300; color: #777; padding-bottom: 0; font-size: 0.85rem; }
+        .table-res td:last-child { font-weight: 600; border-bottom: 1px solid #eee; margin-bottom: 10px; }
+
+        /* Desktop View (Tabel kembali normal) */
+        @media (min-width: 768px) {
+            .hero-section { padding: 60px 0 100px; }
+            .hero-section h1 { font-size: 2.5rem; }
+            .table-res td { display: table-cell; border-bottom: none !important; }
+            .table-res td:first-child { width: 35%; color: #333; font-weight: 400; font-size: 1rem; }
+            #skl-print-area { padding: 50px; }
+        }
+
+        /* Area Tanda Tangan */
+        .ttd-container { margin-top: 30px; text-align: right; }
+        .ttd-box { display: inline-block; text-align: center; min-width: 200px; }
+
+        /* Print Settings */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            #resultArea { display: block !important; position: absolute; top: 0; width: 100%; }
+            .card-main { box-shadow: none; border: none; }
+            .table-res td { display: table-cell !important; border-bottom: none !important; width: auto !important; }
+            .table-res td:first-child { width: 35% !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section no-print">
+        <div class="container">
+            <h1>SMK MA'ARIF NU 01 BULAKAMBA</h1>
+            <p class="opacity-75">Pengumuman Kelulusan Tahun Pelajaran 2025/2026</p>
+        </div>
+    </div>
+<!-- TAMPILAN HITUNG MUNDUR HORIZONTAL -->
+<div id="countdownArea" class="container search-container no-print" style="display: none;">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card card-main p-4 p-md-5 text-center">
+                <h5 class="fw-bold mb-4 text-primary">PENGUMUMAN DIBUKA DALAM:</h5>
+                
+                <!-- Container Flex Horizontal -->
+                <div class="d-flex justify-content-center align-items-center gap-2 gap-md-3">
+                    <div class="time-box">
+                        <h2 id="days" class="fw-bold m-0">00</h2>
+                        <span class="small">Hari</span>
+                    </div>
+                    <div class="fs-3 fw-bold">:</div>
+                    <div class="time-box">
+                        <h2 id="hours" class="fw-bold m-0">00</h2>
+                        <span class="small">Jam</span>
+                    </div>
+                    <div class="fs-3 fw-bold">:</div>
+                    <div class="time-box">
+                        <h2 id="minutes" class="fw-bold m-0">00</h2>
+                        <span class="small">Menit</span>
+                    </div>
+                    <div class="fs-3 fw-bold">:</div>
+                    <div class="time-box">
+                        <h2 id="seconds" class="fw-bold m-0">00</h2>
+                        <span class="small">Detik</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded border">
+                    <p class="small text-muted mb-0">
+                        <i class="bi bi-info-circle"></i> Sesuai Jadwal: <strong>04 Mei 2026, Pukul 18:00 WIB</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styling tambahan untuk box waktu agar konsisten */
+    .time-box {
+        background: #212529;
+        color: white;
+        padding: 10px;
+        border-radius: 12px;
+        min-width: 65px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .time-box h2 {
+        font-size: 1.5rem;
+    }
+    .time-box span {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
+    
+    /* Responsif HP agar tidak terlalu lebar */
+    @media (max-width: 576px) {
+        .time-box {
+            min-width: 55px;
+            padding: 8px 5px;
+        }
+        .time-box h2 {
+            font-size: 1.2rem;
+        }
+        .gap-2 {
+            gap: 0.4rem !important;
+        }
+    }
+</style>
+
+
+    <div class="container search-container no-print">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card card-main p-4 text-center">
+                    <h6 class="fw-bold mb-3">Cek Kelulusan</h6>
+                    <input type="text" id="nisnInput" class="form-control form-control-lg text-center mb-3" placeholder="Masukkan NISN">
+                    <button onclick="prosesCek()" id="btnCek" class="btn btn-primary btn-lg w-100 fw-bold">PERIKSA HASIL</button>
+                    
+                    <div id="loader" class="mt-3" style="display:none;">
+                        <div class="spinner-border text-primary spinner-border-sm"></div>
+                        <span class="ms-2 small">Memproses...</span>
+                    </div>
+                </div>
+
+                <div id="errorArea" class="mt-3" style="display:none;">
+                    <div class="alert alert-danger small text-center">NISN tidak terdaftar.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HASIL KELULUSAN -->
+    <div class="container mb-5" id="resultArea" style="display:none;">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div id="skl-print-area" class="card-main shadow-sm">
+                    
+                    <!-- KOP -->
+                    <div class="kop-surat text-center border-bottom border-dark border-3 pb-2 mb-4">
+                        <h5 class="m-0">PEMERINTAH PROVINSI JAWA TENGAH</h5>
+                        <h4 class="m-0 fw-bold">DINAS PENDIDIKAN DAN KEBUDAYAAN</h4>
+                        <h3 class="fw-bold m-0">SMK MA'ARIF NU 01 BULAKAMBA</h3>
+                        <p>Jl. Raya Bulusari - Cipelem KM. 02 Kec. Bulakamba Kab. Brebes</p>
+                    </div>
+
+                    <!-- JUDUL -->
+                    <div class="text-center mb-4">
+                        <h6 class="text-decoration-underline fw-bold mb-0">SURAT KETERANGAN LULUS</h6>
+                        <small>Nomor: 2026.5 / <span id="skl-nomor">...</span> / 2026</small>
+                    </div>
+
+                    <p class="small text-muted mb-1">Menerangkan bahwa:</p>
+                    <table class="table-res">
+                        <tr><td>Nama Lengkap</td><td><span id="namaSiswa"></span></td></tr>
+                        <tr><td>NISN</td><td><span id="nisnSiswa"></span></td></tr>
+                        <tr><td>Peminatan</td><td><span id="jurusanSiswa"></span></td></tr>
+                    </table>
+
+					<div id="statusBadge" class="alert alert-success text-center fw-bold fs-4 my-4 border-2">
+					Dinyatakan: LULUS
+                    </div>
+
+                    <p class="small">Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya.</p>
+
+                    <!-- TANDA TANGAN -->
+                    <div class="ttd-container">
+                        <div class="ttd-box">
+                            <p class="small mb-0">Brebes, 4 Mei 2026</p>
+                            <p class="small">Kepala Sekolah,</p>
+                            <div style="height: 60px;"></div>
+                            <p class="mb-0 fw-bold"><u>Azizil Ghofar Djauhari, S.Kom., M.Pd.</u></p>
+                            <p class="small text-muted">NIP. -</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4 no-print px-3">
+                    <button onclick="window.print()" class="btn btn-dark w-100 mb-2 py-3 fw-bold">SIMPAN PDF / CETAK</button>
+                    <a href="javascript:void(0)" onclick="location.reload()" class="text-muted small d-block mt-2 text-decoration-none">← Cari NISN Lain</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Tentukan Waktu Pengumuman (Tahun, Bulan-1, Tanggal, Jam, Menit, Detik)
+// Catatan: Bulan dimulai dari 0 (Januari=0, Mei=4)
+const targetDate = new Date(2026, 4, 4, 18, 0, 0).getTime(); 
+
+const countdownTimer = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const formArea = document.querySelector('.search-container:not(#countdownArea)');
+    const countdownArea = document.getElementById('countdownArea');
+
+    if (distance > 0) {
+        // Jika Belum Waktunya
+        formArea.style.display = "none";
+        countdownArea.style.display = "block";
+
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = d.toString().padStart(2, '0');
+        document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+        document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+        document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+    } else {
+        // Jika Sudah Lewat Waktunya
+        clearInterval(countdownTimer);
+        formArea.style.display = "block";
+        countdownArea.style.display = "none";
+    }
+}, 1000);
+
+
+            async function prosesCek() {
+    const nisn = document.getElementById('nisnInput').value;
+    const btn = document.getElementById('btnCek');
+    const loader = document.getElementById('loader');
+    const result = document.getElementById('resultArea');
+    const error = document.getElementById('errorArea');
+
+    if(!nisn) return alert("Masukkan NISN!");
+
+    // Tampilkan Loading
+    btn.style.display = 'none';
+    loader.style.display = 'block';
+    result.style.display = 'none';
+    error.style.display = 'none';
+
+    try {
+        // GANTI URL DI BAWAH INI DENGAN URL DARI LANGKAH 2
+        const url_script = "https://script.google.com/macros/s/AKfycbzyvPXXcxBH_1_UvPxTr3jCPzxXkiaomZR8g1OQUUvT4woVEV_eB_wmhWK0auE_6hAyiw/exec";
+        
+        const response = await fetch(url_script + "?nisn=" + nisn);
+        const data = await response.json();
+
+        loader.style.display = 'none';
+        btn.style.display = 'block';
+
+        if (data.status === "found") {
+            document.getElementById('namaSiswa').innerText = data.nama;
+            document.getElementById('nisnSiswa').innerText = data.nisn;
+            document.getElementById('jurusanSiswa').innerText = data.jurusan;
+            document.getElementById('skl-nomor').innerText = data.no_surat;
+            
+            result.style.display = "block";
+            result.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            error.style.display = "block";
+        }
+    } catch (err) {
+        loader.style.display = 'none';
+        btn.style.display = 'block';
+        alert("Terjadi kesalahan koneksi. Pastikan URL Script benar.");
+    }
+}
+
+    </script>
+</body>
+</html>
